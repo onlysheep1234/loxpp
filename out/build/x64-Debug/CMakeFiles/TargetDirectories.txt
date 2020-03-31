@@ -1,0 +1,5 @@
+D:/programing/cpp_projects/loxpp/out/build/x64-Debug/CMakeFiles/edit_cache.dir
+D:/programing/cpp_projects/loxpp/out/build/x64-Debug/CMakeFiles/rebuild_cache.dir
+D:/programing/cpp_projects/loxpp/out/build/x64-Debug/loxpp/CMakeFiles/loxpp.dir
+D:/programing/cpp_projects/loxpp/out/build/x64-Debug/loxpp/CMakeFiles/edit_cache.dir
+D:/programing/cpp_projects/loxpp/out/build/x64-Debug/loxpp/CMakeFiles/rebuild_cache.dir
