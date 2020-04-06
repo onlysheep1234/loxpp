@@ -21,28 +21,31 @@ enum class token_type
 	IF, ELSE, FUN, FOR, NIL, WHILE,
 	RETURN, SUPER, THIS, VAR,
 	PRINT,
+
+	//eof
+	Eof,
 };
 
 
 class token
 {
 public:
-	token(token_type type, std::string lexeme, double lv, int line, int col) : type{ type }, lexeme{ lexeme }, line{ line }, col{ col }, val{lv}{};
-	token(token_type type, std::string lexeme, std::string lv, int line, int col) : type{ type }, lexeme{ lexeme }, line{ line }, col{ col }, val{ lv }{};
-	token(token_type type, std::string lexeme, int line, int col) : type{ type }, lexeme{ lexeme }, line{ line }, col{ col }, val{ nullptr }{};
-	friend std::ostream& operator<< (std::ostream & os, const token & t);
+	token(token_type type, std::wstring lexeme, double lv, int line, int col) : type{ type }, lexeme{ lexeme }, line{ line }, col{ col }, val{lv}{};
+	token(token_type type, std::wstring lexeme, std::wstring&& lv, int line, int col) : type{ type }, lexeme{ lexeme }, line{ line }, col{ col }, val{ lv }{};
+	token(token_type type, std::wstring lexeme, int line, int col) : type{ type }, lexeme{ lexeme }, line{ line }, col{ col }, val{ nullptr }{};
+	friend std::wostream& operator<< (std::wostream & os, const token & t);
 
 private:
 	token_type type;
-	std::string lexeme;
-	std::variant<std::string, double, void*> val;
+	std::wstring lexeme;
+	std::variant<std::wstring, double, void*> val;
 	int line;
 	int col;
 };
 
 
 //todo: use a more elegent method
-std::ostream& operator<<(std::ostream& os, const token_type tt) {
+std::wostream& operator<<(std::wostream& os, const token_type tt) {
 	switch (tt)
 	{
 	case token_type::LEFT_PAREN:
@@ -90,6 +93,9 @@ std::ostream& operator<<(std::ostream& os, const token_type tt) {
 	case token_type::PRINT:
 		os << "keyword";
 		break;
+    case token_type::Eof:
+        os << "eof";
+        break;
 	default:
 		break;
 	}
@@ -97,7 +103,24 @@ std::ostream& operator<<(std::ostream& os, const token_type tt) {
 	return os;
 }
 
-std::ostream& operator<<(std::ostream& os, const token& t) {
+std::wostream& operator<<(std::wostream& os, const token& t) {
 	return os << t.type << "," << t.lexeme << "," << t.line << "," << t.col;
 };
 
+std::unordered_map<std::wstring, token_type> keywords = {
+        {L"and", token_type::AND},
+        {L"or", token_type::OR},
+        {L"false", token_type::FALSE},
+        {L"true", token_type::TRUE},
+        {L"if", token_type::IF},
+        {L"else", token_type::ELSE},
+        {L"func", token_type::FUN},
+        {L"for", token_type::FOR},
+        {L"nil", token_type::NIL},
+        {L"while", token_type::WHILE},
+        {L"return", token_type::RETURN},
+        {L"super", token_type::SUPER},
+        {L"this", token_type::THIS},
+        {L"var", token_type::VAR},
+        {L"print", token_type::PRINT},
+};
